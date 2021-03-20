@@ -8,10 +8,15 @@ const App = () => {
     inputRef.current?.focus()
   }, []);
 
+  const searchHandler = (query: string) => null
+
   return (
     <>
       <div className="App-header">
-        <SearchBar inputRef={inputRef} />
+        <SearchBar
+          inputRef={inputRef}
+          handleSearch={searchHandler}
+        />
       </div>
       <div className="App-body">
 
