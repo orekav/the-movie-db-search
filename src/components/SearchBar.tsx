@@ -26,20 +26,20 @@ const SearchBar = ({ inputRef, handleSearch }: SearchBarProps) => {
 
   return (
     <div>
-      <InputGroup className="mb-3">
+      <InputGroup className='mb-3'>
         <InputGroup.Text>
           <Icon.Search />
         </InputGroup.Text>
         <FormControl
-          data-testid="search-bar-input"
+          data-testid='search-bar-input'
           ref={inputRef}
           onKeyPress={onKeyPress}
           onChange={inputHandler}
         />
         <InputGroup.Append>
           <Button
-            data-testid="search-bar-button"
-            variant="outline-primary"
+            data-testid='search-bar-button'
+            variant='outline-primary'
             onClick={clickHandler}
           >Search</Button>
         </InputGroup.Append>

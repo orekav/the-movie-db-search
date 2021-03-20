@@ -1,8 +1,10 @@
-import React, { useLayoutEffect, useRef } from 'react';
-import './App.css';
-import SearchBar from './SearchBar'
+import React, { useLayoutEffect, useRef, useState } from 'react'
+import './App.css'
+import SearchBar from './components/SearchBar'
+import ResultsDisplay from './components/ResultsDisplay'
 
 const App = () => {
+  // Focus at start
   const inputRef = useRef<HTMLInputElement>(null);
   useLayoutEffect(() => {
     inputRef.current?.focus()
@@ -12,13 +14,13 @@ const App = () => {
 
   return (
     <>
-      <div className="App-header">
+      <div className='App-header'>
         <SearchBar
           inputRef={inputRef}
           handleSearch={searchHandler}
         />
       </div>
-      <div className="App-body">
+      <div className='App-body'>
 
       </div>
     </>
