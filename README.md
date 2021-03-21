@@ -1,4 +1,5 @@
-# Getting Started with Create React App
+# The Movie DB Search
+[![Build Status](https://travis-ci.com/orekav/the-movie-db-search.svg?branch=main)](https://travis-ci.com/orekav/the-movie-db-search) [![Coverage Status](https://coveralls.io/repos/github/orekav/the-movie-db-search/badge.svg?branch=main)](https://coveralls.io/github/orekav/the-movie-db-search?branch=main)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
