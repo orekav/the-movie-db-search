@@ -3,6 +3,7 @@ import SearchBar from '../components/SearchBar'
 import ResultsDisplay from '../components/ResultsDisplay'
 import { multiSearch } from '../services/tmdbAPI'
 import { Container } from 'react-bootstrap'
+import { MultiSearchCommonProperties } from '../models/tmdbAPI'
 
 const Search = () => {
   // Focus at start
@@ -11,11 +12,13 @@ const Search = () => {
     inputRef.current?.focus()
   }, []);
 
-  const [results, setResults] = useState<any>(null)
+  const [results, setResults] = useState<MultiSearchCommonProperties[]>()
 
   const searchHandler = (query: string) => {
     multiSearch({ query })
-      .then(data => setResults(data))
+      .then(data => {
+        setResults(data.results)
+      })
       .catch(console.error)
   }
 

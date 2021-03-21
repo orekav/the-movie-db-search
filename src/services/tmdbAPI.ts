@@ -5,7 +5,7 @@ import {
   MovieCredits,
   MultiSearchCommonProperties,
   Person,
-  PersonCredits,
+  PersonParticipations,
   SearchMovie,
   SearchPerson,
   SearchTV,
@@ -38,7 +38,7 @@ type MultiSearch = {
 
 export const getResource = <T, P>(
   resource: string,
-  id?: number,
+  id?: number | string,
   extraPath?: string
 ) => async (params?: P): Promise<T> => {
   try {
@@ -65,11 +65,11 @@ export const tvSearch = search<SearchTV>('tv');
 export const personSearch = search<SearchPerson>('person');
 
 const getResourceExtra = <T>(resource: string, extra?: string) => (
-  id: number
+  id: number | string
 ) => getResource<T, null>(resource, id, extra)();
 
 const getResourceById = <T extends Detailed>(resource: string) => (
-  id: number
+  id: number | string
 ) => getResourceExtra<T>(resource)(id);
 
 export const getMovieById = getResourceById<Movie>('movie');
@@ -81,7 +81,7 @@ export const getMovieCredits = getResourceExtra<MovieCredits>(
   'credits'
 );
 export const getTVCredits = getResourceExtra<TVCredits>('tv', 'credits');
-export const getPersonCombinedCredits = getResourceExtra<PersonCredits>(
+export const getPersonCombinedCredits = getResourceExtra<PersonParticipations>(
   'person',
   'combined_credits'
 );

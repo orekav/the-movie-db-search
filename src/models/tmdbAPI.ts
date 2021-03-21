@@ -26,7 +26,7 @@ export type SearchPerson = MultiSearchCommonProperties & {
   profile_path?: string | null;
 };
 
-type CreditMember = {
+export type CreditMember = {
   adult?: boolean;
   gender?: number | null;
   id?: number;
@@ -36,6 +36,7 @@ type CreditMember = {
   popularity?: number;
   profile_path?: string | null;
   credit_id?: string;
+  media_type: 'person';
 };
 
 // TV Shows don't have cast_id
@@ -50,7 +51,7 @@ type CrewMovieTV = CreditMember & {
   job?: string;
 };
 
-type CreditPerson = {
+export type PersonCredits = {
   id: number;
   original_language: string;
   episode_count: number;
@@ -74,11 +75,11 @@ type CreditPerson = {
   release_date: string;
 };
 
-type CastPerson = CreditPerson & {
+type CastPerson = PersonCredits & {
   character?: string;
 };
 
-type CrewPerson = CreditPerson & {
+type CrewPerson = PersonCredits & {
   department: string;
   job: string;
 };
@@ -91,24 +92,38 @@ type Credits<Cast, Crew> = {
 
 export type MovieCredits = Credits<CastMovieTV, CrewMovieTV>;
 export type TVCredits = Credits<CastMovieTV, CrewMovieTV>;
-export type PersonCredits = Credits<CastPerson, CrewPerson>;
+export type PersonParticipations = Credits<CastPerson, CrewPerson>;
 
-export type Detailed = {};
+export type Detailed = {
+  id?: number
+  popularity?: number;
+};
 
 // ToDo: add missing properties (resource details) to Movie and TV
-export type Movie = Detailed & SearchMovie;
-export type TV = Detailed & SearchTV;
+export type Movie = Detailed & {
+  release_date?: string;
+  original_title?: string;
+  status?: string;
+  title?: string;
+  overview?: string;
+};
+export type TV = Detailed & {
+  name?: string;
+  original_name?: string;
+  status?: string;
+  first_air_date?: string;
+  last_air_date?: string;
+  overview?: string;
+};
 
 export type Person = Detailed & {
   birthday?: string | null;
   known_for_department?: string;
   deathday?: string | null;
-  id?: number;
   name?: string;
   also_known_as?: string[];
   gender?: number;
   biography?: string;
-  popularity?: number;
   place_of_birth?: string | null;
   profile_path?: string | null;
   adult?: boolean;

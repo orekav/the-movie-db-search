@@ -1,13 +1,13 @@
 import { Table } from 'react-bootstrap';
 import * as Icon from 'react-bootstrap-icons';
-import { MultiSearchCommonProperties, SearchMovie, SearchPerson, SearchTV } from '../models/tmdbAPI';
-import { TMDBResponse } from '../services/tmdbAPI';
+import { Link } from 'react-router-dom';
+import { MultiSearchCommonProperties, SearchMovie, SearchPerson, SearchTV, PersonCredits, CreditMember } from '../models/tmdbAPI';
 
-const generateRow = (media: MultiSearchCommonProperties) => {
+const generateRow = (media: MultiSearchCommonProperties | PersonCredits | CreditMember, index: number) => {
   switch (media.media_type) {
-    case 'movie': return movieRow(media as SearchMovie)
-    case 'tv': return tvRow(media as SearchTV)
-    case 'person': return personRow(media as SearchPerson)
+    case 'movie': return movieRow(media as SearchMovie, index)
+    case 'tv': return tvRow(media as SearchTV, index)
+    case 'person': return personRow(media as SearchPerson, index)
     default: return null
   }
 }
@@ -18,51 +18,67 @@ const isAdult = (value?: boolean) => {
   return 'Unknown'
 }
 
+type getLinkParams = {
+  id?: number;
+  media_type: string;
+}
+const getLink = ({media_type, id}: getLinkParams) =>
+  id ? `/${media_type}/${id}` : null
+
 type CommonRow = {
   key: string;
   IconElement: Icon.Icon;
   name?: string;
   popularity?: number
   adult?: boolean
+  link: string | null,
+  index: number
 }
 
-const commonRow = ({ IconElement, name, popularity, adult, key }: CommonRow) =>
+const commonRow = ({ IconElement, name, popularity, adult, key, link, index }: CommonRow) =>
   <tr
     data-testid={`result-display-table-row-${key}`}
-    key={key}
+    key={`${key}-${index}`}
   >
     <td align={'center'}><IconElement /></td>
     <td align={'left'}>{name}</td>
     <td align={'center'}>{popularity}</td>
     <td align={'center'}>{isAdult(adult)}</td>
+    <td align={'center'}>{link && <Link to={link}>Details</Link>}</td>
   </tr>
 
-const personRow = (media: SearchPerson) => commonRow({
+const personRow = (media: SearchPerson, index: number) => commonRow({
   key: `${media.media_type}-${media.id}`,
   IconElement: Icon.PersonLinesFill,
   name: media.name,
   popularity: media.popularity,
   adult: media.adult,
+  link: getLink(media),
+  index,
 })
 
-const movieRow = (media: SearchMovie) => commonRow({
+const movieRow = (media: SearchMovie, index: number) => commonRow({
   key: `${media.media_type}-${media.id}`,
   IconElement: Icon.Film,
   name: media.title || media.original_title,
   popularity: media.popularity,
   adult: media.adult,
+  link: getLink(media),
+  index,
 })
 
-const tvRow = (media: SearchTV) => commonRow({
+const tvRow = (media: SearchTV, index: number) => commonRow({
   key: `${media.media_type}-${media.id}`,
   IconElement: Icon.Tv,
   name: media.name || media.original_name,
   popularity: media.popularity,
   adult: media.adult,
+  link: getLink(media),
+  index,
 })
 
 type ResultsDisplayProps = {
-  data?: TMDBResponse<MultiSearchCommonProperties>
+  data?: (MultiSearchCommonProperties | PersonCredits | CreditMember )[]
 }
 
 const ResultsDisplay = ({ data }: ResultsDisplayProps) => {
@@ -78,7 +94,7 @@ const ResultsDisplay = ({ data }: ResultsDisplayProps) => {
 
   const results = (
     <tbody data-testid='result-display-table-row-results'>
-      {data.results.map(r => generateRow(r))}
+      {data.map((generateRow))}
     </tbody>
   )
 
@@ -96,10 +112,11 @@ const ResultsDisplay = ({ data }: ResultsDisplayProps) => {
           <th>Name</th>
           <th>Popularity</th>
           <th>Adult</th>
+          <th>More Details</th>
         </tr>
       </thead>
       {
-        data.results.length ? results : noResults
+        data.length ? results : noResults
       }
     </Table>
   )
