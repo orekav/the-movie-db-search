@@ -23,7 +23,7 @@ test('AC3 - A user may type any text into the search input field then click on t
 })
 
 test('AC4 - A user may type any text into the search input field then press the enter key to initiate a search.', async () => {
-  const searchHandler = jest.fn((a) => console.log(a))
+  const searchHandler = jest.fn()
   const { getByTestId } = render(<SearchBar handleSearch={searchHandler} />);
   const input = getByTestId('search-bar-input')
 

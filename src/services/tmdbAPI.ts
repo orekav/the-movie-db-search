@@ -23,7 +23,7 @@ tmdbAPI.defaults.headers.common = {
   Authorization: token ? `Bearer ${token}` : '',
 };
 
-type TMDBResponse<T extends MultiSearchCommonProperties> = {
+export type TMDBResponse<T extends MultiSearchCommonProperties> = {
   page?: number;
   total_results?: number;
   total_pages?: number;

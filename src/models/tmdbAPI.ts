@@ -10,12 +10,15 @@ export type SearchMovie = MultiSearchCommonProperties & {
   media_type: 'movie';
   poster_path?: string | null;
   overview?: string;
+  title?: string;
+  original_title?: string;
 };
 
 export type SearchTV = MultiSearchCommonProperties & {
   media_type: 'tv';
   poster_path?: string | null;
   overview?: string;
+  original_name?: string;
 };
 
 export type SearchPerson = MultiSearchCommonProperties & {

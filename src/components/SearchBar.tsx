@@ -1,10 +1,10 @@
-import React, { ChangeEventHandler, KeyboardEventHandler, useState } from 'react';
+import { ChangeEventHandler, KeyboardEventHandler, MouseEventHandler, RefObject, useState } from 'react';
 import { FormControl, InputGroup } from 'react-bootstrap';
 import * as Icon from 'react-bootstrap-icons';
 import Button from 'react-bootstrap/Button';
 
 type SearchBarProps = {
-  inputRef?: React.RefObject<HTMLInputElement>
+  inputRef?: RefObject<HTMLInputElement>
   handleSearch: (query: string) => any
 }
 
@@ -20,7 +20,7 @@ const SearchBar = ({ inputRef, handleSearch }: SearchBarProps) => {
     setQuery(event.currentTarget.value)
   }
 
-  const clickHandler: React.MouseEventHandler<HTMLElement> = () => {
+  const clickHandler: MouseEventHandler<HTMLElement> = () => {
     handleSearch(query)
   }
 
