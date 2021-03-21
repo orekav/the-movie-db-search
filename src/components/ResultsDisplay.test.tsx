@@ -6,8 +6,9 @@ import ResultsDisplay from './ResultsDisplay'
 const searchData: TMDBResponse<SearchMovie | SearchPerson | SearchTV> = {
   results: [
     { media_type: 'person', adult: false, name: 'Bryan Cranston', id: 1, popularity: 100 },
-    { media_type: 'tv', adult: true, name: 'Breaking Bad', id: 1, popularity: 100 },
-    { media_type: 'movie', adult: undefined, title: 'El Camino: A Breaking Bad Movie', id: 1, popularity: 100 },
+    { media_type: 'tv', adult: true, name: 'Breaking Bad', id: 2, popularity: 99 },
+    { media_type: 'movie', adult: undefined, title: 'El Camino: A Breaking Bad Movie', id: 3, popularity: 78 },
+    { media_type: 'invalid', adult: undefined, title: 'Invalid', id: 1, popularity: 37 },
   ]
 }
 
@@ -73,6 +74,14 @@ describe.only('AC6 - Upon initiating a search, the user is presented with the se
       expect(result).toHaveTextContent(searchObject.title! || searchObject.original_title!)
       expect(result).toHaveTextContent(searchObject.popularity!.toString())
       expect(result).toHaveTextContent('Unknown')
+    })
+
+    it('should not display invalid mediaType', async () => {
+      const { container } = rendered
+      const searchObject = searchData.results.find(r => r.media_type === 'invalid')!
+
+      expect(container).not.toHaveTextContent(searchObject.name!)
+      expect(container).not.toHaveTextContent(searchObject.popularity!.toString())
     })
 
   })

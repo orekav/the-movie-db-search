@@ -8,7 +8,7 @@ const generateRow = (media: MultiSearchCommonProperties) => {
     case 'movie': return movieRow(media as SearchMovie)
     case 'tv': return tvRow(media as SearchTV)
     case 'person': return personRow(media as SearchPerson)
-    default: return <Icon.QuestionCircle />
+    default: return null
   }
 }
 
