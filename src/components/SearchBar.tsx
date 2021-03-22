@@ -104,7 +104,7 @@ const SearchBar = ({ autoFocus = false, handleSearch }: SearchBarProps) => {
           filterBy={filterBy}
           isLoading={isLoading}
           labelKey='name'
-          minLength={3}
+          minLength={5}
           onSearch={searchHandler}
           options={options}
           placeholder='Search for a Movie, TV Show or Person...'
