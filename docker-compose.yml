@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+  
+  client:
+    build:
+      context: ./
+      dockerfile: Dockerfile-${NODE_ENV:-development}
+    # Only Development
+    env_file:
+      - .env
+    # Staging or Production
+    # environment:
+    #   NODE_ENV: ${NODE_ENV:-development}
+    #   REACT_APP_TMDB_API: https://api.themoviedb.org/3/
+    #   REACT_APP_TMDB_ACCESS_TOKEN: ${TMDB_ACCESS_TOKEN}
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/usr/app
+      - /usr/app/node_modules

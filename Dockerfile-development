@@ -1,0 +1,13 @@
+FROM docker.registry.vptech.eu/node:14-alpine
+
+WORKDIR /usr/app
+
+# Install dependencies
+COPY package.json .
+RUN yarn install
+
+# Copy sources
+COPY . .
+
+# start
+CMD ["yarn", "start"]
