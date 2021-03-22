@@ -11,7 +11,7 @@ import {
   SearchTV,
   TV,
   TVCredits,
-} from '../models/tmdbAPI';
+} from '../types/tmdbAPI';
 
 const token = process.env.REACT_APP_TMDB_ACCESS_TOKEN;
 

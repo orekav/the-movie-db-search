@@ -19,7 +19,7 @@ test('AC3 - A user may type any text into the search input field then click on t
   fireEvent.change(input, { target: { value: 'Sky UK' } })
   fireEvent.click(button)
   expect(searchHandler).toHaveBeenCalledTimes(1)
-  expect(searchHandler).toHaveBeenCalledWith('Sky UK')
+  expect(searchHandler).toHaveBeenCalledWith('multi', 'Sky UK')
 })
 
 test('AC4 - A user may type any text into the search input field then press the enter key to initiate a search.', async () => {
@@ -31,5 +31,5 @@ test('AC4 - A user may type any text into the search input field then press the 
   // https://github.com/testing-library/react-testing-library/issues/269#issuecomment-455854112
   fireEvent.keyPress(input, { charCode: 13 })
   expect(searchHandler).toHaveBeenCalledTimes(1)
-  expect(searchHandler).toHaveBeenCalledWith('Sky UK')
+  expect(searchHandler).toHaveBeenCalledWith('multi', 'Sky UK')
 })

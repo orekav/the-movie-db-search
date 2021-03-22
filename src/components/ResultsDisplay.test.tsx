@@ -1,6 +1,6 @@
 import { render, RenderResult } from '@testing-library/react'
 import { MemoryRouter } from 'react-router'
-import { SearchMovie, SearchPerson, SearchTV } from '../models/tmdbAPI'
+import { SearchMovie, SearchPerson, SearchTV } from '../types/tmdbAPI'
 import ResultsDisplay from './ResultsDisplay'
 
 const searchData: (SearchMovie | SearchPerson | SearchTV)[] =[

@@ -6,7 +6,7 @@ import { getPersonById, getPersonCombinedCredits } from '../services/tmdbAPI';
 import {
     Person,
     PersonParticipations,
-} from '../models/tmdbAPI';
+} from '../types/tmdbAPI';
 import ResultsDisplay from '../components/ResultsDisplay';
 
 type RouteParams = {
@@ -41,7 +41,7 @@ const PersonDetailsPage = () => {
                 </Card.Body>
                 <Card.Footer className='text-muted'>2 days ago</Card.Footer>
             </Card>
-            <ResultsDisplay data={personCredits?.cast}/>
+            <ResultsDisplay data={personCredits?.cast} mediaType={'person'} />
         </Container>
     )
 }

@@ -1,10 +1,10 @@
 import { Table } from 'react-bootstrap';
 import * as Icon from 'react-bootstrap-icons';
 import { Link } from 'react-router-dom';
-import { MultiSearchCommonProperties, SearchMovie, SearchPerson, SearchTV, PersonCredits, CreditMember } from '../models/tmdbAPI';
+import { MultiSearchCommonProperties, SearchMovie, SearchPerson, SearchTV, PersonCredits, CreditMember, MediaType } from '../types/tmdbAPI';
 
-const generateRow = (media: MultiSearchCommonProperties | PersonCredits | CreditMember, index: number) => {
-  switch (media.media_type) {
+const generateRow = (media: MultiSearchCommonProperties | PersonCredits | CreditMember, index: number, mediaType?: string) => {
+  switch (media.media_type || mediaType) {
     case 'movie': return movieRow(media as SearchMovie, index)
     case 'tv': return tvRow(media as SearchTV, index)
     case 'person': return personRow(media as SearchPerson, index)
@@ -22,7 +22,7 @@ type getLinkParams = {
   id?: number;
   media_type: string;
 }
-const getLink = ({media_type, id}: getLinkParams) =>
+const getLink = ({ media_type, id }: getLinkParams) =>
   id ? `/${media_type}/${id}` : null
 
 type CommonRow = {
@@ -78,23 +78,24 @@ const tvRow = (media: SearchTV, index: number) => commonRow({
 })
 
 type ResultsDisplayProps = {
-  data?: (MultiSearchCommonProperties | PersonCredits | CreditMember )[]
+  data?: (MultiSearchCommonProperties | PersonCredits | CreditMember)[]
+  mediaType?: MediaType
 }
 
-const ResultsDisplay = ({ data }: ResultsDisplayProps) => {
+const ResultsDisplay = ({ data, mediaType }: ResultsDisplayProps) => {
   if (!data) return null
 
   const noResults = (
     <tbody data-testid='result-display-table-row-no-results'>
       <tr>
-        <td colSpan={4} align={'center'}>No matching results</td>
+        <td colSpan={5} align={'center'}>No matching results</td>
       </tr>
     </tbody>
   )
 
   const results = (
     <tbody data-testid='result-display-table-row-results'>
-      {data.map((generateRow))}
+      {data.map((r, i) => generateRow(r, i, mediaType))}
     </tbody>
   )
 

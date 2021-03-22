@@ -1,9 +1,9 @@
 import { useLayoutEffect, useRef, useState } from 'react'
 import SearchBar from '../components/SearchBar'
 import ResultsDisplay from '../components/ResultsDisplay'
-import { multiSearch } from '../services/tmdbAPI'
+import { movieSearch, multiSearch, personSearch, tvSearch } from '../services/tmdbAPI'
 import { Container } from 'react-bootstrap'
-import { MultiSearchCommonProperties } from '../models/tmdbAPI'
+import { MediaType, MultiSearchCommonProperties } from '../types/tmdbAPI'
 
 const Search = () => {
   // Focus at start
@@ -13,11 +13,28 @@ const Search = () => {
   }, []);
 
   const [results, setResults] = useState<MultiSearchCommonProperties[]>()
+  const [selectedMediaType, setSelectedMediaType] = useState<MediaType>()
 
-  const searchHandler = (query: string) => {
-    multiSearch({ query })
+  const searchHandler = (mediaType: MediaType, query: string) => {
+    let searchPromise
+    switch (mediaType) {
+      case 'movie':
+        searchPromise = movieSearch({ query })
+        break;
+      case 'tv':
+        searchPromise = tvSearch({ query })
+        break
+      case 'person':
+        searchPromise = personSearch({ query })
+        break
+      case 'multi':
+      default:
+        searchPromise = multiSearch({ query })
+    }
+    searchPromise
       .then(data => {
-        setResults(data.results)
+        setSelectedMediaType(mediaType)
+        setResults(data.results.map(media => ({ ...media, media_type: media.media_type || mediaType })))
       })
       .catch(console.error)
   }
@@ -30,6 +47,7 @@ const Search = () => {
       />
       <ResultsDisplay
         data={results}
+        mediaType={selectedMediaType}
       />
     </Container>
   );

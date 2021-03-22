@@ -5,7 +5,7 @@ import { getTVById, getTVCredits } from '../services/tmdbAPI';
 import {
     TV,
     TVCredits,
-} from '../models/tmdbAPI';
+} from '../types/tmdbAPI';
 import ResultsDisplay from '../components/ResultsDisplay';
 import { Tv } from 'react-bootstrap-icons';
 
@@ -22,15 +22,7 @@ const TVDetails = () => {
         getTVById(id)
             .then(setTVDetails)
         getTVCredits(id)
-            .then((results) => {
-                const cast = results.cast?.map(castMember => ({ ...castMember, media_type: 'person' } as typeof castMember))
-                const crew = results.crew?.map(crewMember => ({ ...crewMember, media_type: 'person' } as typeof crewMember))
-                setTVCredits({
-                    id: results.id,
-                    cast,
-                    crew,
-                })
-            })
+            .then(setTVCredits)
     }, [id])
 
     const firstAirDate = tvDetails?.first_air_date ? (new Date(tvDetails.first_air_date)).toLocaleDateString() : 'Unknown'
@@ -47,7 +39,7 @@ const TVDetails = () => {
                 </Card.Body>
                 <Card.Footer className='text-muted'>2 days ago</Card.Footer>
             </Card>
-            <ResultsDisplay data={tvCredits?.cast} />
+            <ResultsDisplay data={tvCredits?.cast} mediaType={'tv'} />
         </Container>
     )
 }

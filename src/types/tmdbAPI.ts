@@ -1,3 +1,5 @@
+export type MediaType = 'multi' | 'movie' | 'tv' | 'person';
+
 export type MultiSearchCommonProperties = {
   id?: number;
   media_type: string;
