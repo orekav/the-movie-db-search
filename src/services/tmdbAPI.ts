@@ -41,6 +41,7 @@ export const getResource = <T, P>(
   id?: number | string,
   extraPath?: string
 ) => async (params?: P): Promise<T> => {
+  console.log('original')
   try {
     const _idPath = id ? `/${id}` : '';
     const _extraPath = extraPath ? `/${extraPath}` : '';

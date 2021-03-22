@@ -30,10 +30,15 @@ const MovieDetails = () => {
     return (
         <Container>
             <Card className='text-center'>
-                <Card.Header><Film /> {movieDetails?.title || movieDetails?.original_title}</Card.Header>
+                <Card.Header>
+                    <Film />
+                    <Card.Text data-testid='movie-details-title'>
+                        {movieDetails?.title || movieDetails?.original_title}
+                    </Card.Text>
+                </Card.Header>
                 <Card.Body>
                     <Card.Title>{releaseDate}</Card.Title>
-                    <Card.Text>{movieDetails?.overview}</Card.Text>
+                    <Card.Text data-testid='movie-details-overview'>{movieDetails?.overview}</Card.Text>
                 </Card.Body>
                 <Card.Footer className='text-muted'>2 days ago</Card.Footer>
             </Card>

@@ -34,10 +34,15 @@ const PersonDetailsPage = () => {
     return (
         <Container>
             <Card className='text-center'>
-                <Card.Header><PersonLinesFill /> {personDetails?.name}</Card.Header>
+                <Card.Header>
+                    <PersonLinesFill />
+                    <Card.Text data-testid='person-details-name'>
+                        {personDetails?.name}
+                    </Card.Text>
+                </Card.Header>
                 <Card.Body>
                     <Card.Title>{birthday}{placeOfBirth} - {deathday}</Card.Title>
-                    <Card.Text>{personDetails?.biography}</Card.Text>
+                    <Card.Text data-testid='person-details-biography'>{personDetails?.biography}</Card.Text>
                 </Card.Body>
                 <Card.Footer className='text-muted'>2 days ago</Card.Footer>
             </Card>

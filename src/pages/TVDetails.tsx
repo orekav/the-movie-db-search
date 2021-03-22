@@ -32,10 +32,15 @@ const TVDetails = () => {
     return (
         <Container>
             <Card className='text-center'>
-                <Card.Header><Tv /> {tvDetails?.name || tvDetails?.original_name}</Card.Header>
+                <Card.Header>
+                    <Tv />
+                    <Card.Text data-testid='tv-details-name'>
+                        {tvDetails?.name || tvDetails?.original_name}
+                    </Card.Text>
+                </Card.Header>
                 <Card.Body>
-                    <Card.Title> {firstAirDate} - {lastAirDate}</Card.Title>
-                    <Card.Text>{tvDetails?.overview}</Card.Text>
+                    <Card.Title data-testid='tv-details-first-last-dates'> {firstAirDate} - {lastAirDate}</Card.Title>
+                    <Card.Text data-testid='tv-details-overview'>{tvDetails?.overview}</Card.Text>
                 </Card.Body>
                 <Card.Footer className='text-muted'>2 days ago</Card.Footer>
             </Card>
