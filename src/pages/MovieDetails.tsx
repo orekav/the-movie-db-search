@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Card, Container } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
-import { getMovieById, getMovieCredits } from '../services/tmdbAPI';
+import { getImageSourceURL, getMovieById, getMovieCredits } from '../services/tmdbAPI';
 import {
     Movie,
     MovieCredits,
@@ -37,11 +37,22 @@ const MovieDetails = () => {
                         {movieDetails?.title || movieDetails?.original_title}
                     </Card.Text>
                 </Card.Header>
+                {movieDetails?.poster_path &&
+                    <Card.Img
+                        src={getImageSourceURL(movieDetails.poster_path, 'w200')}
+                        style={{
+                            width: '25%',
+                            height: '25%',
+                            alignSelf: 'center',
+                            padding: '5px'
+                        }}
+                    />
+                }
                 <Card.Body>
                     <Card.Title>{releaseDate}</Card.Title>
                     <Card.Text data-testid='movie-details-overview'>{movieDetails?.overview}</Card.Text>
                 </Card.Body>
-                <Card.Footer className='text-muted'>2 days ago</Card.Footer>
+                <Card.Footer className='text-muted'></Card.Footer>
             </Card>
             <ResultsDisplay data={movieCredits?.cast} mediaType={'person'} />
         </Container>

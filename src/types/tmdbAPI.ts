@@ -108,7 +108,9 @@ export type Movie = Detailed & {
   status?: string;
   title?: string;
   overview?: string;
+  poster_path?: string;
 };
+
 export type TV = Detailed & {
   name?: string;
   original_name?: string;
@@ -116,6 +118,7 @@ export type TV = Detailed & {
   first_air_date?: string;
   last_air_date?: string;
   overview?: string;
+  poster_path?: string;
 };
 
 export type Person = Detailed & {

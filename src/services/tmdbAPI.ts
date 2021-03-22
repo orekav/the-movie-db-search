@@ -85,3 +85,6 @@ export const getPersonCombinedCredits = getResourceExtra<PersonParticipations>(
   'person',
   'combined_credits'
 );
+
+export const getImageSourceURL = (path: string, size: 'original' | 'w200' | 'w300' | 'w400' | 'w500' = 'w200') =>
+  `${process.env.REACT_APP_TMDB_IMAGE_API}${size}/${path}`

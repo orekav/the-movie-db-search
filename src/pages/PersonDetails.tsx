@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Card, Container } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
-import { getPersonById, getPersonCombinedCredits } from '../services/tmdbAPI';
+import { getImageSourceURL, getPersonById, getPersonCombinedCredits } from '../services/tmdbAPI';
 import {
     Person,
     PersonParticipations,
@@ -41,13 +41,24 @@ const PersonDetailsPage = () => {
                         {personDetails?.name}
                     </Card.Text>
                 </Card.Header>
+                {personDetails?.profile_path &&
+                    <Card.Img
+                        src={getImageSourceURL(personDetails.profile_path, 'w200')}
+                        style={{
+                            width: '25%',
+                            height: '25%',
+                            alignSelf: 'center',
+                            padding: '5px'
+                        }}
+                    />
+                }
                 <Card.Body>
                     <Card.Title>{birthday}{placeOfBirth} - {deathday}</Card.Title>
                     <Card.Text data-testid='person-details-biography'>{personDetails?.biography}</Card.Text>
                 </Card.Body>
-                <Card.Footer className='text-muted'>2 days ago</Card.Footer>
+                <Card.Footer className='text-muted'></Card.Footer>
             </Card>
-            <ResultsDisplay data={personCredits?.cast}/>
+            <ResultsDisplay data={personCredits?.cast} />
         </Container>
     )
 }

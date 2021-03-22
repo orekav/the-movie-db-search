@@ -12,6 +12,7 @@ services:
     # Staging or Production
     # environment:
     #   NODE_ENV: ${NODE_ENV:-development}
+    #   REACT_APP_TMDB_IMAGE_API: =https://image.tmdb.org/t/p/
     #   REACT_APP_TMDB_API: https://api.themoviedb.org/3/
     #   REACT_APP_TMDB_ACCESS_TOKEN: ${TMDB_ACCESS_TOKEN}
     ports:

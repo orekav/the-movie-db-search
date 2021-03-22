@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Card, Container } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
-import { getTVById, getTVCredits } from '../services/tmdbAPI';
+import { getImageSourceURL, getTVById, getTVCredits } from '../services/tmdbAPI';
 import {
     TV,
     TVCredits,
@@ -38,11 +38,22 @@ const TVDetails = () => {
                         {tvDetails?.name || tvDetails?.original_name}
                     </Card.Text>
                 </Card.Header>
+                {tvDetails?.poster_path &&
+                    <Card.Img
+                        src={getImageSourceURL(tvDetails.poster_path, 'w200')}
+                        style={{
+                            width: '25%',
+                            height: '25%',
+                            alignSelf: 'center',
+                            padding: '5px'
+                        }}
+                    />
+                }
                 <Card.Body>
                     <Card.Title data-testid='tv-details-first-last-dates'> {firstAirDate} - {lastAirDate}</Card.Title>
                     <Card.Text data-testid='tv-details-overview'>{tvDetails?.overview}</Card.Text>
                 </Card.Body>
-                <Card.Footer className='text-muted'>2 days ago</Card.Footer>
+                <Card.Footer className='text-muted'></Card.Footer>
             </Card>
             <ResultsDisplay data={tvCredits?.cast} mediaType={'person'} />
         </Container>
