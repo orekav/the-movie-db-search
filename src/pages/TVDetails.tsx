@@ -29,7 +29,6 @@ const TVDetails = () => {
     const firstAirDate = tvDetails?.first_air_date ? (new Date(tvDetails.first_air_date)).toLocaleDateString() : 'Unknown'
     const lastAirDate = tvDetails?.last_air_date ? (new Date(tvDetails.last_air_date)).toLocaleDateString() : 'Unknown'
 
-
     return (
         <Container>
             <Card className='text-center'>
@@ -45,7 +44,7 @@ const TVDetails = () => {
                 </Card.Body>
                 <Card.Footer className='text-muted'>2 days ago</Card.Footer>
             </Card>
-            <ResultsDisplay data={tvCredits?.cast} mediaType={mediaType} />
+            <ResultsDisplay data={tvCredits?.cast} mediaType={'person'} />
         </Container>
     )
 }

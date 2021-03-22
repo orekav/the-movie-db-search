@@ -43,7 +43,7 @@ const MovieDetails = () => {
                 </Card.Body>
                 <Card.Footer className='text-muted'>2 days ago</Card.Footer>
             </Card>
-            <ResultsDisplay data={movieCredits?.cast} mediaType={mediaType} />
+            <ResultsDisplay data={movieCredits?.cast} mediaType={'person'} />
         </Container>
     )
 }

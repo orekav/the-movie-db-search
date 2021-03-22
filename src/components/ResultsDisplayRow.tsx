@@ -62,11 +62,10 @@ const tvRow = (media: SearchTV, props: any) => commonRow({
 
 type ResultsDisplayRowProps = {
   media: MultiSearchCommonProperties | PersonCredits | CreditMember;
-  mediaType?: MediaType;
 }
 
-const ResultsDisplayRow = ({ media, mediaType, ...props }: ResultsDisplayRowProps) => {
-  switch (media.media_type || mediaType) {
+const ResultsDisplayRow = ({ media, ...props }: ResultsDisplayRowProps) => {
+  switch (media.media_type) {
     case 'movie': return movieRow(media as SearchMovie, props)
     case 'tv': return tvRow(media as SearchTV, props)
     case 'person': return personRow(media as SearchPerson, props)

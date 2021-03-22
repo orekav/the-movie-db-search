@@ -23,10 +23,9 @@ const ResultsDisplay = ({ data, mediaType }: ResultsDisplayProps) => {
       {
         data.map((media, index) => (
           <ResultsDisplayRow
-            data-testid={`result-display-table-row-${media.media_type}-${media.id}`}
+            data-testid={`result-display-table-row-${media.media_type || mediaType}-${media.id}`}
             key={`${media.media_type}-${media.id}-${index}`}
-            media={media}
-            mediaType={mediaType}
+            media={{...media, media_type: media.media_type! || mediaType!}}
           />
         ))
       }

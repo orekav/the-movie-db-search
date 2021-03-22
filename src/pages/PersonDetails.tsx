@@ -47,7 +47,7 @@ const PersonDetailsPage = () => {
                 </Card.Body>
                 <Card.Footer className='text-muted'>2 days ago</Card.Footer>
             </Card>
-            <ResultsDisplay data={personCredits?.cast} mediaType={mediaType} />
+            <ResultsDisplay data={personCredits?.cast}/>
         </Container>
     )
 }
