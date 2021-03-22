@@ -7,13 +7,14 @@ import {
     TVCredits,
 } from '../types/tmdbAPI';
 import ResultsDisplay from '../components/ResultsDisplay';
-import { Tv } from 'react-bootstrap-icons';
+import { getIconByMediaType } from '../helpers/mediaType';
 
 type RouteParams = {
     id: string;
 }
 
 const TVDetails = () => {
+    const mediaType = 'tv'
     const { id } = useParams<RouteParams>()
     const [tvDetails, setTVDetails] = useState<TV>()
     const [tvCredits, setTVCredits] = useState<TVCredits>()
@@ -33,7 +34,7 @@ const TVDetails = () => {
         <Container>
             <Card className='text-center'>
                 <Card.Header>
-                    <Tv />
+                    {getIconByMediaType(mediaType)}
                     <Card.Text data-testid='tv-details-name'>
                         {tvDetails?.name || tvDetails?.original_name}
                     </Card.Text>
@@ -44,7 +45,7 @@ const TVDetails = () => {
                 </Card.Body>
                 <Card.Footer className='text-muted'>2 days ago</Card.Footer>
             </Card>
-            <ResultsDisplay data={tvCredits?.cast} mediaType={'tv'} />
+            <ResultsDisplay data={tvCredits?.cast} mediaType={mediaType} />
         </Container>
     )
 }

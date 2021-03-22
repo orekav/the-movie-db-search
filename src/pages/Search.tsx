@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 import SearchBar from '../components/SearchBar'
 import ResultsDisplay from '../components/ResultsDisplay'
 import { movieSearch, multiSearch, personSearch, tvSearch } from '../services/tmdbAPI'
@@ -6,12 +6,6 @@ import { Container } from 'react-bootstrap'
 import { MediaType, MultiSearchCommonProperties } from '../types/tmdbAPI'
 
 const Search = () => {
-  // Focus at start
-  const inputRef = useRef<HTMLInputElement>(null);
-  useLayoutEffect(() => {
-    inputRef.current?.focus()
-  }, []);
-
   const [results, setResults] = useState<MultiSearchCommonProperties[]>()
   const [selectedMediaType, setSelectedMediaType] = useState<MediaType>()
 
@@ -42,7 +36,7 @@ const Search = () => {
   return (
     <Container>
       <SearchBar
-        inputRef={inputRef}
+        autoFocus
         handleSearch={searchHandler}
       />
       <ResultsDisplay

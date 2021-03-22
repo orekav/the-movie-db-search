@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { Card, Container } from 'react-bootstrap';
-import { PersonLinesFill } from 'react-bootstrap-icons'
 import { useParams } from 'react-router-dom';
 import { getPersonById, getPersonCombinedCredits } from '../services/tmdbAPI';
 import {
@@ -8,12 +7,14 @@ import {
     PersonParticipations,
 } from '../types/tmdbAPI';
 import ResultsDisplay from '../components/ResultsDisplay';
+import { getIconByMediaType } from '../helpers/mediaType';
 
 type RouteParams = {
     id: string;
 }
 
 const PersonDetailsPage = () => {
+    const mediaType = 'person'
     const { id } = useParams<RouteParams>()
     const [personDetails, setPersonDetails] = useState<Person>()
     const [personCredits, setPersonCredits] = useState<PersonParticipations>()
@@ -35,7 +36,7 @@ const PersonDetailsPage = () => {
         <Container>
             <Card className='text-center'>
                 <Card.Header>
-                    <PersonLinesFill />
+                    {getIconByMediaType(mediaType)}
                     <Card.Text data-testid='person-details-name'>
                         {personDetails?.name}
                     </Card.Text>
@@ -46,7 +47,7 @@ const PersonDetailsPage = () => {
                 </Card.Body>
                 <Card.Footer className='text-muted'>2 days ago</Card.Footer>
             </Card>
-            <ResultsDisplay data={personCredits?.cast} mediaType={'person'} />
+            <ResultsDisplay data={personCredits?.cast} mediaType={mediaType} />
         </Container>
     )
 }

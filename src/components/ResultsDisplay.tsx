@@ -1,81 +1,6 @@
 import { Table } from 'react-bootstrap';
-import * as Icon from 'react-bootstrap-icons';
-import { Link } from 'react-router-dom';
-import { MultiSearchCommonProperties, SearchMovie, SearchPerson, SearchTV, PersonCredits, CreditMember, MediaType } from '../types/tmdbAPI';
-
-const generateRow = (media: MultiSearchCommonProperties | PersonCredits | CreditMember, index: number, mediaType?: string) => {
-  switch (media.media_type || mediaType) {
-    case 'movie': return movieRow(media as SearchMovie, index)
-    case 'tv': return tvRow(media as SearchTV, index)
-    case 'person': return personRow(media as SearchPerson, index)
-    default: return null
-  }
-}
-
-const isAdult = (value?: boolean) => {
-  if (value === true) return 'Yes'
-  if (value === false) return 'No'
-  return 'Unknown'
-}
-
-type getLinkParams = {
-  id?: number;
-  media_type: string;
-}
-const getLink = ({ media_type, id }: getLinkParams) =>
-  id ? `/${media_type}/${id}` : null
-
-type CommonRow = {
-  key: string;
-  IconElement: Icon.Icon;
-  name?: string;
-  popularity?: number
-  adult?: boolean
-  link: string | null,
-  index: number
-}
-
-const commonRow = ({ IconElement, name, popularity, adult, key, link, index }: CommonRow) =>
-  <tr
-    data-testid={`result-display-table-row-${key}`}
-    key={`${key}-${index}`}
-  >
-    <td align={'center'}><IconElement /></td>
-    <td align={'left'}>{name}</td>
-    <td align={'center'}>{popularity}</td>
-    <td align={'center'}>{isAdult(adult)}</td>
-    <td align={'center'}>{link && <Link to={link}>Details</Link>}</td>
-  </tr>
-
-const personRow = (media: SearchPerson, index: number) => commonRow({
-  key: `${media.media_type}-${media.id}`,
-  IconElement: Icon.PersonLinesFill,
-  name: media.name,
-  popularity: media.popularity,
-  adult: media.adult,
-  link: getLink(media),
-  index,
-})
-
-const movieRow = (media: SearchMovie, index: number) => commonRow({
-  key: `${media.media_type}-${media.id}`,
-  IconElement: Icon.Film,
-  name: media.title || media.original_title,
-  popularity: media.popularity,
-  adult: media.adult,
-  link: getLink(media),
-  index,
-})
-
-const tvRow = (media: SearchTV, index: number) => commonRow({
-  key: `${media.media_type}-${media.id}`,
-  IconElement: Icon.Tv,
-  name: media.name || media.original_name,
-  popularity: media.popularity,
-  adult: media.adult,
-  link: getLink(media),
-  index,
-})
+import { MultiSearchCommonProperties, PersonCredits, CreditMember, MediaType } from '../types/tmdbAPI';
+import ResultsDisplayRow from './ResultsDisplayRow'
 
 type ResultsDisplayProps = {
   data?: (MultiSearchCommonProperties | PersonCredits | CreditMember)[]
@@ -95,7 +20,16 @@ const ResultsDisplay = ({ data, mediaType }: ResultsDisplayProps) => {
 
   const results = (
     <tbody data-testid='result-display-table-row-results'>
-      {data.map((r, i) => generateRow(r, i, mediaType))}
+      {
+        data.map((media, index) => (
+          <ResultsDisplayRow
+            data-testid={`result-display-table-row-${media.media_type}-${media.id}`}
+            key={`${media.media_type}-${media.id}-${index}`}
+            media={media}
+            mediaType={mediaType}
+          />
+        ))
+      }
     </tbody>
   )
 

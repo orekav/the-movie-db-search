@@ -7,13 +7,14 @@ import {
     MovieCredits,
 } from '../types/tmdbAPI';
 import ResultsDisplay from '../components/ResultsDisplay';
-import { Film } from 'react-bootstrap-icons';
+import { getIconByMediaType } from '../helpers/mediaType';
 
 type RouteParams = {
     id: string;
 }
 
 const MovieDetails = () => {
+    const mediaType = 'movie'
     const { id } = useParams<RouteParams>()
     const [movieDetails, setMovieDetails] = useState<Movie>()
     const [movieCredits, setMovieCredits] = useState<MovieCredits>()
@@ -31,7 +32,7 @@ const MovieDetails = () => {
         <Container>
             <Card className='text-center'>
                 <Card.Header>
-                    <Film />
+                    {getIconByMediaType(mediaType)}
                     <Card.Text data-testid='movie-details-title'>
                         {movieDetails?.title || movieDetails?.original_title}
                     </Card.Text>
@@ -42,7 +43,7 @@ const MovieDetails = () => {
                 </Card.Body>
                 <Card.Footer className='text-muted'>2 days ago</Card.Footer>
             </Card>
-            <ResultsDisplay data={movieCredits?.cast} mediaType={'movie'} />
+            <ResultsDisplay data={movieCredits?.cast} mediaType={mediaType} />
         </Container>
     )
 }

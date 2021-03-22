@@ -18,7 +18,7 @@ const renderWithRouter = (element: JSX.Element) => render(
 
 const getRowKey = (mediaType: string, id?: number) => `result-display-table-row-${mediaType}-${id}`
 
-describe.only('AC6 - Upon initiating a search, the user is presented with the search results.', () => {
+describe('AC6 - Upon initiating a search, the user is presented with the search results.', () => {
 
   it('should not display results table', () => {
     const { container } = renderWithRouter(<ResultsDisplay />)
